@@ -1,14 +1,12 @@
 var clientes = [
-  {id: 1, name: 'Leonardo', telefone: '473829473892'},
-  {id: 2, name: 'Leo', telefone: '47328473892'},
-  {id: 3, name: 'Leonard', telefone: '47382947382'}
+  {id: 1, name: 'Vue.js', telefone: 'Superheroic JavaScript MVW Framework.', cpf:'843329048920', email:'demelodenoed', latitude:'4830248392048920', longitude:'4372473892472'},
 ];
 
-function findCliente (clienteId) {
-  return clientes[findClienteKey(clienteId)];
+function findcliente (clienteId) {
+  return clientes[findclienteKey(clienteId)];
 };
 
-function findClienteKey (clienteId) {
+function findclienteKey (clienteId) {
   for (var key = 0; key < clientes.length; key++) {
     if (clientes[key].id == clienteId) {
       return key;
@@ -26,22 +24,27 @@ var List = Vue.extend({
 var cliente = Vue.extend({
   template: '#cliente',
   data: function () {
-    return {cliente: findCliente(this.$route.params.cliente_id)};
+    return {cliente: findcliente(this.$route.params.cliente_id)};
   }
 });
 
 var clienteEdit = Vue.extend({
   template: '#cliente-edit',
   data: function () {
-    return {cliente: findCliente(this.$route.params.cliente_id)};
+    return {cliente: findcliente(this.$route.params.cliente_id)};
   },
   methods: {
     updatecliente: function () {
       var cliente = this.$get('cliente');
-      clientes[findClienteKey(cliente.id)] = {
+      clientes[findclienteKey(cliente.id)] = {
         id: cliente.id,
         name: cliente.name,
         telefone: cliente.telefone,
+        cpf: cliente.cpf,
+        email: cliente.email,
+        latitude: cliente.latitude,
+        longitude: cliente.longitude,
+
       };
       router.go('/');
     }
@@ -51,11 +54,11 @@ var clienteEdit = Vue.extend({
 var clienteDelete = Vue.extend({
   template: '#cliente-delete',
   data: function () {
-    return {cliente: findCliente(this.$route.params.cliente_id)};
+    return {cliente: findcliente(this.$route.params.cliente_id)};
   },
   methods: {
     deletecliente: function () {
-      clientes.splice(findClienteKey(this.$route.params.cliente_id), 1);
+      clientes.splice(findclienteKey(this.$route.params.cliente_id), 1);
       router.go('/');
     }
   }
@@ -64,7 +67,7 @@ var clienteDelete = Vue.extend({
 var Addcliente = Vue.extend({
   template: '#add-cliente',
   data: function () {
-    return {cliente: {name: '', telefone: ''}
+    return {cliente: {name: '', telefone: '', cpf: '', email: '', latitude: '', longitude: '', }
     }
   },
   methods: {
@@ -74,6 +77,11 @@ var Addcliente = Vue.extend({
         id: Math.random().toString().split('.')[1],
         name: cliente.name,
         telefone: cliente.telefone,
+        cpf: cliente.cpf,
+        email: cliente.email,
+        latitude: cliente.latitude,
+        longitude: cliente.longitude,
+
       });
       router.go('/');
     }
