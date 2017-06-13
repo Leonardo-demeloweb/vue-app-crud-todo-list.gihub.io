@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Vue app ToDo list</title>
+
+
+   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css'>
+   <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+  <html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vue.js/ bootstrap CRUD</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container">
+  <header class="page-header">
+    <div class="branding">
+      <img src="logo@2-digicade.png" alt="Logo" title="Home page" class="logo"/>
+      <h1>Vue.js/ Bootstrap CRUD/ ToDo List</h1>
+    </div>
+  </header>
+  <main id="app">
+    <router-view></router-view>
+  </main>
+</div>
+
+<template id="cliente-list">
+  <div class="actions">
+    <a class="btn btn-default" v-link="{path: '/add-cliente'}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add cliente
+    </a>
+  </div>
+  <div class="filters row">
+    <div class="form-group col-sm-3">
+      <label for="search-element">name do cliente</label>
+      <input v-model="searchKey" class="form-control" id="search-element" requred/>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Telefone</th>
+      <th class="col-sm-2">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="cliente in clientes | filterBy searchKey in 'name'">
+      <td>
+        <a v-link="{name: 'cliente', params: {cliente_id: cliente.id}}">{{ cliente.name }}</a>
+      </td>
+      <td>{{ cliente.telefone }}</td>
+      <td>
+        <a class="btn btn-warning btn-xs" v-link="{name: 'cliente-edit', params: {cliente_id: cliente.id}}">Editar</a>
+        <a class="btn btn-danger btn-xs" v-link="{name: 'cliente-delete', params: {cliente_id: cliente.id}}">Deletar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</template>
+
+<template id="add-cliente">
+  <h2>Adicionar Novo Cliente</h2>
+  <form v-on:submit="createcliente">
+    <div class="form-group">
+      <label for="add-name">name</label>
+      <input class="form-control" id="add-name" v-model="cliente.name" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-cpf">CPF/ CNPJ</label>
+      <input class="form-control" id="add-cpf" v-model="cliente.cpf" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-telefone">Telefone</label>
+      <input class="form-control" id="add-telefone" v-model="cliente.telefone" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-email">Email</label>
+      <input class="form-control" id="add-email" v-model="cliente.email" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-latitude">Latitude</label>
+      <input class="form-control" id="add-latitude" v-model="cliente.latitude" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-longitude">Longitude</label>
+      <input class="form-control" id="add-longitude" v-model="cliente.longitude" required/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+    <a v-link="'/'" class="btn btn-default">Cancelar</a>
+  </form>
+</template>
+
+
+
+
+<template id="cliente">
+  <h2>{{ cliente.name }}</h2>
+  <b>Description: </b>
+  <div>{{ cliente.telefone }}</div>
+  <b>Description: </b>
+  <div>{{ cliente.cpf }}</div>
+  <b>Description: </b>
+  <div>{{ cliente.email }}</div>
+  <b>Description: </b>
+  <div>{{ cliente.latitude }}</div>
+  <b>Description: </b>
+  <div>{{ cliente.longitude }}</div>
+  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+  <a v-link="'/'">De volta a lista</a>
+</template>
+
+<template id="cliente-edit" class>
+  <h2>Edite cliente</h2>
+  <form v-on:submit="updatecliente">
+    <div class="form-group">
+      <label for="edit-name">name</label>
+      <input class="form-control" id="edit-name" v-model="cliente.name" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-cpf">CPF</label>
+      <input class="form-control" id="edit-cpf" v-model="cliente.cpf" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-telefone">Telefone</label>
+      <input class="form-control" id="edit-telefone" v-model="cliente.telefone" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-email">Email</label>
+      <input class="form-control" id="edit-email" v-model="cliente.email" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-latitude">Latitude</label>
+      <input class="form-control" id="edit-Latitude" v-model="cliente.latitude" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-Longitude">Longitude</label>
+      <input class="form-control" id="edit-longitude" v-model="cliente.longitude" required/>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a v-link="'/'" class="btn btn-default">Cancela</a>
+  </form>
+</template>
+
+<template id="cliente-delete">
+  <h2>Delete cliente {{ cliente.name }}</h2>
+  <form v-on:submit="deletecliente">
+    <p>A ação não pode ser desfeita</p>
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <a v-link="'/'" class="btn btn-default">Cancela</a>
+  </form>
+</template>
+
+</body>
+</html>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/0.7.13/vue-router.min.js'></script>
+<script src='https://cdn.jsdelivr.net/vue.resource/1.3.1/vue-resource.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>

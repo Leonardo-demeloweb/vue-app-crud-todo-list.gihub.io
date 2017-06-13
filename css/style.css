@@ -1,0 +1,34 @@
+.logo {
+  width: 280px;
+  float: left;
+  margin-right: 15px;
+}
+
+.form-group {
+  max-width: 500px;
+}
+
+.actions {
+  padding: 10px 0;
+}
+ .map {
+  width: 100%;
+  height: 100%;
+}
+.info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0,0,0,0.8);
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+}
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: rgba(0,0,0,0.6);
+  color: inherit;
+  border: none;
+  padding: 0.3em;
+}
